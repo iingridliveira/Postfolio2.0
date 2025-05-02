@@ -75,7 +75,7 @@ export const NavBar = () => {
                 }
                 onClick={() => onUpdateActiveLink("projects")}
               >
-                Projetos
+                Sobre
               </Nav.Link>
             </Nav>
             <span className="navbar-text">
