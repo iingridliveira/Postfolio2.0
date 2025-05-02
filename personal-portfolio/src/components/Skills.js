@@ -40,9 +40,10 @@ export const Skills = () => {
             <div className="skill-bx wow zoomIn">
               <h2>Skills</h2>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.<br></br> Lorem Ipsum has been the industry's standard
-                dummy text.
+                Tenho experiência em desenvolvimento web, trabalhando com tecnologias como React, Node.js e MySQL. 
+                Além disso, possuo conhecimento em Linux e frameworks como NestJS, o que me permite criar aplicações 
+                robustas e escaláveis. Estou sempre buscando aprender e aprimorar minhas habilidades para entregar 
+                soluções de alta qualidade.
               </p>
               <Carousel
                 responsive={responsive}
@@ -51,29 +52,28 @@ export const Skills = () => {
               >
                 <div className="item">
                   <img src={react} alt="React logo" />
-                  <h5>R</h5>
+                  <h5>React</h5>
                 </div>
                 <div className="item">
                   <img src={JS} alt="JavaScript logo" />
-                  <h5>Web Development</h5>
+                  <h5>JavaScript</h5>
                 </div>
                 <div className="item">
                   <img src={mysql} alt="MySQL logo" />
-                  <h5>Web Development</h5>
+                  <h5>MySQL</h5>
                 </div>
                 <div className="item">
                   <img src={node} alt="Node.js logo" />
-                  <h5>Brand Identity</h5>
+                  <h5>Node.js</h5>
                 </div>
                 <div className="item">
                   <img src={nest} alt="NestJS logo" />
-                  <h5>Logo Design</h5>
+                  <h5>NestJS</h5>
                 </div>
                 <div className="item">
                   <img src={Linux} alt="Linux logo" />
-                  <h5>Web Development</h5>
+                  <h5>Linux</h5>
                 </div>
-               
               </Carousel>
             </div>
           </div>
