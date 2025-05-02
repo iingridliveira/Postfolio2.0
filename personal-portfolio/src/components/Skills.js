@@ -4,6 +4,7 @@ import nest from "../assets/img/nest-guard-ts-svgrepo-com.svg";
 import react from "../assets/img/react-svgrepo-com.svg";
 import mysql from "../assets/img/mysql-svgrepo-com (2).svg";
 import JS from "../assets/img/js-svgrepo-com.svg";
+import Java from "../assets/img/java.svg";
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
@@ -40,10 +41,12 @@ export const Skills = () => {
             <div className="skill-bx wow zoomIn">
               <h2>Skills</h2>
               <p>
-                Tenho experiência em desenvolvimento web, trabalhando com tecnologias como React, Node.js e MySQL. 
-                Além disso, possuo conhecimento em Linux e frameworks como NestJS, o que me permite criar aplicações 
-                robustas e escaláveis. Estou sempre buscando aprender e aprimorar minhas habilidades para entregar 
-                soluções de alta qualidade.
+                Tenho experiência em desenvolvimento web, trabalhando com
+                tecnologias como React, Node.js e MySQL. Além disso, possuo
+                conhecimento em Linux e frameworks como NestJS e Java com Android Studio, o que me permite
+                criar aplicações robustas e escaláveis. Estou sempre buscando
+                aprender e aprimorar minhas habilidades para entregar soluções
+                de alta qualidade.
               </p>
               <Carousel
                 responsive={responsive}
@@ -74,12 +77,20 @@ export const Skills = () => {
                   <img src={Linux} alt="Linux logo" />
                   <h5>Linux</h5>
                 </div>
+                <div className="item">
+                  <img src={Java} alt="Java logo" />
+                  <h5>Java</h5>
+                </div>
               </Carousel>
             </div>
           </div>
         </div>
       </div>
-      <img className="background-image-left" src={colorSharp} alt="Background decorativo" />
+      <img
+        className="background-image-left"
+        src={colorSharp}
+        alt="Background decorativo"
+      />
     </section>
   );
 }
