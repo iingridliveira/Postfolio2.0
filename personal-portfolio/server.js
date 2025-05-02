@@ -5,12 +5,14 @@ const nodemailer = require("nodemailer");
 
 // server used to send send emails
 const app = express();
+require("dotenv").config();
 app.use(cors());
 app.use(express.json());
+const port = process.env.PORT || 4000; 
 app.use("/", router);
-app.listen(5000, () => console.log("Server Running"));
+app.listen(port, () => console.log("Server Running"));
 
-require("dotenv").config();
+
 
 const contactEmail = nodemailer.createTransport({
   service: "gmail",
