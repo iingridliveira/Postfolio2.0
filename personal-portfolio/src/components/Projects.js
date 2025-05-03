@@ -9,6 +9,7 @@ import projImg6 from "../assets/img/project-img6.png";
 import colorSharp2 from "../assets/img/color-sharp2.png";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
+import CarouselComponent from "./Carousel";
 
 export const Projects = () => {
   const projects = [
@@ -61,11 +62,11 @@ export const Projects = () => {
                     isVisible ? "animate__animated animate__fadeIn" : ""
                   }
                 >
-                  <h2>Meus Projetos</h2>
+                  <h2>Um pouco de mim</h2>
                   <p>
-                    Aqui estão alguns dos projetos que desenvolvi, combinando
-                    design criativo e desenvolvimento técnico para criar
-                    soluções impactantes e funcionais.
+                    Aqui estão alguns dos projetos que desenvolvi, combinando e
+                    um pouco sobre mim e Certificados que conquistei ao longo do
+                    da minha jornado me tornando uma desenvolvedora web.
                   </p>
                   <Tab.Container id="projects-tabs" defaultActiveKey="first">
                     <Nav
@@ -74,13 +75,13 @@ export const Projects = () => {
                       id="pills-tab"
                     >
                       <Nav.Item>
-                        <Nav.Link eventKey="first">Aba 1</Nav.Link>
+                        <Nav.Link eventKey="first">Projetos</Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="second">Aba 2</Nav.Link>
+                        <Nav.Link eventKey="second">Sobre mim</Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="third">Aba 3</Nav.Link>
+                        <Nav.Link eventKey="third">Certificados</Nav.Link>
                       </Nav.Item>
                     </Nav>
                     <Tab.Content
@@ -96,18 +97,16 @@ export const Projects = () => {
                           })}
                         </Row>
                       </Tab.Pane>
-                      <Tab.Pane eventKey="section">
-                        <p>
-                          Explore mais sobre os projetos e veja como cada um
-                          deles foi pensado para atender às necessidades
-                          específicas de cada cliente.
-                        </p>
+                      <Tab.Pane eventKey="second">
+                        {" "}
+                        {/* Corrigido de "section" para "second" */}
+        aaaaaaaaaaaaaaaa
                       </Tab.Pane>
                       <Tab.Pane eventKey="third">
-                        <p>
-                          Entre em contato para saber mais sobre os projetos ou
-                          discutir novas ideias e colaborações.
-                        </p>
+                        <div className="align-items-center">
+                          
+                        <CarouselComponent /> {/* Nome corrigido */}
+                        </div>
                       </Tab.Pane>
                     </Tab.Content>
                   </Tab.Container>
