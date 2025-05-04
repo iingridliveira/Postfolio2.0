@@ -10,6 +10,7 @@ import colorSharp2 from "../assets/img/color-sharp2.png";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
 import CarouselComponent from "./Carousel";
+import About from "./About";
 
 export const Projects = () => {
   const projects = [
@@ -98,14 +99,14 @@ export const Projects = () => {
                         </Row>
                       </Tab.Pane>
                       <Tab.Pane eventKey="second">
-                        {" "}
+                        <section className="about container">
+                          <About />
+                        </section>{" "}
                         {/* Corrigido de "section" para "second" */}
-        aaaaaaaaaaaaaaaa
                       </Tab.Pane>
                       <Tab.Pane eventKey="third">
                         <div className="align-items-center">
-                          
-                        <CarouselComponent /> {/* Nome corrigido */}
+                          <CarouselComponent /> {/* Nome corrigido */}
                         </div>
                       </Tab.Pane>
                     </Tab.Content>

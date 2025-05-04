@@ -47,8 +47,15 @@ p, a, li, button, ul {
   padding: 0;
   line-height: normal;
   text-decoration: none;
+  
 }
-
+#aboutparagraf{
+  width: 100%;
+  height: auto;
+  text-align: justify;
+  text-justify: inter-word;
+  line-height: 1.6;
+}
 a:hover {
   text-decoration: none;
 }

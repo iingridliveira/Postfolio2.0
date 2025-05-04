@@ -5,6 +5,7 @@ import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
 
+
 export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -78,9 +79,12 @@ export const Banner = () => {
                     Curiosa como um gato e sonhadora como quem olha as estrelas,
                     encontrei na tecnologia o meu universo para explorar.
                   </p>
-                  <button onClick={() => console.log("connect")}>
-                    Vamos Conectar <ArrowRightCircle size={25} />
-                  </button>
+                  <a href="#connect" className="text-decoration-none">
+                    <button>
+                      Vamos Conectar <ArrowRightCircle size={25} />
+                    </button>
+                  </a>
+                
                 </div>
               )}
             </TrackVisibility>
