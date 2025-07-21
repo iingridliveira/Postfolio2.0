@@ -3,8 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
+import { toast } from "react-toastify";
 
-export const Contact = () => {
+export const Contact = ({alert}) => {
   const formInitialDetails = {
     firstName: '',
     lastName: '',
@@ -14,7 +15,7 @@ export const Contact = () => {
   }
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState('Enviar');
-  const [status, setStatus] = useState({});
+
 
   const onFormUpdate = (category, value) => {
       setFormDetails({
@@ -37,14 +38,17 @@ export const Contact = () => {
     let result = await response.json();
     setFormDetails(formInitialDetails);
     if (result.code === 200) {
-      setStatus({ succes: true, message: 'Mensagem enviada com sucesso' });
+      
+      toast.success('Mensagem enviada com sucesso!');
     } else {
-      setStatus({ succes: false, message: 'Algo deu errado, por favor tente novamente mais tarde.' });
+     
+      toast.error('Algo deu errado, por favor tente novamente mais tarde.');
     }
     };
 
     return (
     <section className="contact" id="connect">
+     
       <Container>
       <Row className="align-items-center">
         <Col size={12} md={6}>
@@ -77,12 +81,7 @@ export const Contact = () => {
               <textarea rows="6" value={formDetails.message} placeholder="Mensagem" required onChange={(e) => onFormUpdate('message', e.target.value)}></textarea>
               <button type="submit"><span>{buttonText}</span></button>
             </Col>
-            {
-              status.message &&
-              <Col>
-              <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
-              </Col>
-            }
+          
             </Row>
           </form>
           </div>}
