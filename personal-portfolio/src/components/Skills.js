@@ -5,6 +5,7 @@ import react from "../assets/img/react-svgrepo-com.svg";
 import mysql from "../assets/img/mysql-svgrepo-com (2).svg";
 import JS from "../assets/img/js-svgrepo-com.svg";
 import Java from "../assets/img/java.svg";
+import Aws from "../assets/img/aws.png"
 import Carousel from 'react-multi-carousel';
 
 import 'react-multi-carousel/lib/styles.css';
@@ -49,8 +50,10 @@ export const Skills = () => {
                 de alta qualidade.
               </p>
               <Carousel
-                responsive={responsive}
+                responsive={responsive} // O objeto atualizado acima
                 infinite={true}
+                autoPlay={true}
+                autoPlaySpeed={9000}
                 className="owl-carousel owl-theme skill-slider"
               >
                 <div className="item">
@@ -63,6 +66,10 @@ export const Skills = () => {
                 </div>
                 <div className="item">
                   <img src={mysql} alt="MySQL logo" />
+                  <h5>MySQL</h5>
+                </div>
+                <div className="item">
+                  <img src={Aws} alt="MySQL logo" />
                   <h5>MySQL</h5>
                 </div>
                 <div className="item">
