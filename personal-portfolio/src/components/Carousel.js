@@ -49,11 +49,11 @@ const CarouselComponent = () => {
   return (
     <section>
       {isLoading ? (
-        <div className="spinner">
+      
           <h1 className="text-center text-white">
             Carregando...
           </h1>
-        </div>
+    
       ) : (
         <Carousel
           responsive={responsive}
