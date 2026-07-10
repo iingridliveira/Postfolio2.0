@@ -1,55 +1,47 @@
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { ProjectCard } from "./ProjectCard";
-import projImg1 from "../assets/img/project-img1.png";
-import projImg2 from "../assets/img/project-img2.png";
-import projImg3 from "../assets/img/project-img3.png";
-import projImg4 from "../assets/img/project-img4.png";
-import projImg5 from "../assets/img/project-img5.png";
-import projImg6 from "../assets/img/project-img6.png";
 import colorSharp2 from "../assets/img/color-sharp2.png";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
 import CarouselComponent from "./Carousel";
 import About from "./About";
+import { getProjects } from "../api/projectsApi";
 
 export const Projects = () => {
-  const projects = [
-    {
-      title: "Projeto Frot-end geração tech",
-      description: "Projeto ecommece sprint 1",
-      imgUrl: projImg1,
-    },
-    {
-      title: "Check Feira",
-      description:
-        " para o controle de fluxo de estoque, na qual visa auxiliar na logística de entrada e saída dos produtos e também na disponibilidade das informações armazenadas",
-      imgUrl: projImg2,
-    },
-    {
-      title: "ECOELEKT",
-      description:
-        "Projeto que visa a sutentabilidade e o meio ambiente, com objetivo de axiliar no controle de gasto energia elétrica  e uso  ",
-      imgUrl: projImg3,
-    },
-    {
-      title: "Conversor de Unidades Android Studio",
-      description:
-        "Aplicativo Android desenvolvido para conversão de unidades de medida de comprrimentos ",
-      imgUrl: projImg4,
-    },
-    {
-      title: "Catálogo de hotéis Hackathon",
-      description:
-        "aplicativo full-stack desenvolvido para padronizar listagens de hotéis e melhorar a experiência de pesquisa na plataforma Onfly.",
-      imgUrl: projImg5,
-    },
-    {
-      title: "Consumo Consciente",
-      description:
-        "Consumo Consciente é um projeto que visa promover produtos que se destacam pelo baixo consumo de energia, permitindo que as pessoas pesquisem e se interessem por esses produtos de forma mais informada.",
-      imgUrl: projImg6,
-    },
-  ];
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Buscar projetos da API quando o componente montar
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true);
+        const data = await getProjects();
+
+        // Mapear os dados da API para o formato esperado pelo ProjectCard
+        const formattedProjects = data.map((project) => ({
+          title: project.titulo,
+          description: project.subtitulo,
+          imgUrl: project.Imagem?.url || "", // URL da imagem do Parse
+          link: project.link, // Link do repositório/projeto
+          objectId: project.objectId, // ID único do projeto
+        }));
+
+        setProjects(formattedProjects);
+        setError(null);
+      } catch (err) {
+        console.error("Erro ao buscar projetos:", err);
+        setError("Erro ao carregar os projetos. Tente novamente mais tarde.");
+        setProjects([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   return (
     <section className="project" id="projects">
@@ -92,21 +84,49 @@ export const Projects = () => {
                       }
                     >
                       <Tab.Pane eventKey="first">
-                        <Row>
-                          {projects.map((project, index) => {
-                            return <ProjectCard key={index} {...project} />;
-                          })}
-                        </Row>
+                        {/* Mostrar estado de carregamento */}
+                        {loading && (
+                          <div className="text-center">
+                            <p>Carregando projetos...</p>
+                          </div>
+                        )}
+
+                        {/* Mostrar erro se houver */}
+                        {error && (
+                          <div className="alert alert-danger" role="alert">
+                            {error}
+                          </div>
+                        )}
+
+                        {/* Renderizar projetos dinamicamente */}
+                        {!loading && !error && projects.length > 0 && (
+                          <Row>
+                            {projects.map((project) => {
+                              return (
+                                <ProjectCard
+                                  key={project.objectId}
+                                  {...project}
+                                />
+                              );
+                            })}
+                          </Row>
+                        )}
+
+                        {/* Mensagem quando não há projetos */}
+                        {!loading && !error && projects.length === 0 && (
+                          <div className="text-center">
+                            <p>Nenhum projeto encontrado.</p>
+                          </div>
+                        )}
                       </Tab.Pane>
                       <Tab.Pane eventKey="second">
                         <section className="about container">
                           <About />
-                        </section>{" "}
-                        {/* Corrigido de "section" para "second" */}
+                        </section>
                       </Tab.Pane>
                       <Tab.Pane eventKey="third">
                         <div className="align-items-center">
-                          <CarouselComponent /> {/* Nome corrigido */}
+                          <CarouselComponent />
                         </div>
                       </Tab.Pane>
                     </Tab.Content>
