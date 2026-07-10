@@ -104,8 +104,8 @@ export const Projects = () => {
                             {projects.map((project) => {
                               return (
                                 <ProjectCard
-                                  key={project.objectId}
-                                  {...project}
+                                  key={project.objectId} link={project.link}
+                                  {...project} 
                                 />
                               );
                             })}
