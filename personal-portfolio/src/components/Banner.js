@@ -1,20 +1,65 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import headerImg from "../assets/img/eugatoblack.png1.png";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
-
+import { getBanner } from "../api/banerapi";
 
 export const Banner = () => {
+  // Estados para a animação de digitação
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [text, setText] = useState("");
   const [delta, setDelta] = useState(300 - Math.random() * 100);
   const [index, setIndex] = useState(1);
-  const toRotate = ["Dev Web", "Dev Fullstack"];
+
+  // Estados para os dados da API
+  const [bannerData, setBannerData] = useState(null);
+  const [toRotate, setToRotate] = useState([]);
+  const [headerImg, setHeaderImg] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const period = 2000;
 
+  // Buscar dados do banner da API
+  useEffect(() => {
+    const fetchBannerData = async () => {
+      try {
+        setLoading(true);
+        const data = await getBanner();
+
+        if (data && data.length > 0) {
+          // Extrair os títulos para a animação de rotação
+          const titles = data.map((item) => item.titulo);
+          setToRotate(titles);
+
+          // Usar o primeiro item para pegar a imagem e o subtítulo
+          const firstBanner = data[0];
+          setHeaderImg(firstBanner.img?.url || "");
+          
+          // Se houver subtítulo no primeiro item, usar; caso contrário, procurar no segundo
+          const subtitle = firstBanner.subtitulo || (data[1]?.subtitulo || "");
+          setSubtitle(subtitle);
+
+          setBannerData(data);
+          setError(null);
+        } else {
+          setError("Nenhum dado de banner encontrado.");
+        }
+      } catch (err) {
+        console.error("Erro ao buscar dados do banner:", err);
+        setError("Erro ao carregar o banner. Tente novamente mais tarde.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBannerData();
+  }, []);
+
+  // Efeito para a animação de digitação
   useEffect(() => {
     let ticker = setInterval(() => {
       tick();
@@ -23,9 +68,11 @@ export const Banner = () => {
     return () => {
       clearInterval(ticker);
     };
-  }, [text]);
+  }, [text, delta, loopNum, isDeleting, toRotate]);
 
   const tick = () => {
+    if (toRotate.length === 0) return; // Evitar erro se toRotate estiver vazio
+
     let i = loopNum % toRotate.length;
     let fullText = toRotate[i];
     let updatedText = isDeleting
@@ -52,10 +99,42 @@ export const Banner = () => {
     }
   };
 
+  // Enquanto está carregando
+  if (loading) {
+    return (
+      <section className="banner" id="home">
+        <Container>
+          <Row className="align-items-center">
+            <Col xs={12} md={6} xl={7}>
+              <p className="text-center">Carregando banner...</p>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+    );
+  }
+
+  // Se houver erro
+  if (error) {
+    return (
+      <section className="banner" id="home">
+        <Container>
+          <Row className="align-items-center">
+            <Col xs={12} md={6} xl={7}>
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+    );
+  }
+
   return (
     <section className="banner" id="home">
       <Container>
-        <Row className="aligh-items-center">
+        <Row className="align-items-center">
           <Col xs={12} md={6} xl={7}>
             <TrackVisibility>
               {({ isVisible }) => (
@@ -70,21 +149,19 @@ export const Banner = () => {
                     <span
                       className="txt-rotate"
                       dataPeriod="1000"
-                      data-rotate='[ "Desenvolvedora Web", "Desenvolvedora Fullstak" ]'
                     >
                       <span className="wrap">{text}</span>
                     </span>
                   </h1>
+                  {/* Parágrafo dinâmico vindo da API */}
                   <p>
-                    Curiosa como um gato e sonhadora como quem olha as estrelas,
-                    encontrei na tecnologia o meu universo para explorar.
+                    {subtitle || "Curiosa como um gato e sonhadora como quem olha as estrelas, encontrei na tecnologia o meu universo para explorar."}
                   </p>
                   <a href="#connect" className="text-decoration-none">
                     <button>
                       Vamos Conectar <ArrowRightCircle size={25} />
                     </button>
                   </a>
-                
                 </div>
               )}
             </TrackVisibility>
@@ -97,7 +174,19 @@ export const Banner = () => {
                     isVisible ? "animate__animated animate__zoomIn" : ""
                   }
                 >
-                  <img src={headerImg} alt="Imagem do Cabeçalho" />
+                  {/* Imagem dinâmica vindo da API */}
+                  {headerImg ? (
+                    <img 
+                      src={headerImg} 
+                      alt="Imagem do Cabeçalho"
+                      onError={(e) => {
+                        // Fallback se a imagem não carregar
+                        e.target.style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    <p className="text-center">Imagem não disponível</p>
+                  )}
                 </div>
               )}
             </TrackVisibility>
